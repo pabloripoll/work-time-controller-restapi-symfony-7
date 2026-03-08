@@ -1,0 +1,135 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    jwt_secret: strong_secret_key_that_no_one_can_guess
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/Domain/*/Entity/'
+            - '../src/Domain/*/ValueObject/'
+            - '../src/Domain/*/Event/'
+            - '../src/Domain/*/DTO/'
+            - '../src/Domain/*/Service/'
+            - '../src/Application/*/DTO/'
+            - '../src/Infrastructure/Messaging/Message/'
+            - '../src/Kernel.php'
+
+    # Make sure RequestStack is available (should be automatic)
+    Symfony\Component\HttpFoundation\RequestStack: ~
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    # Event Subscribers (correct namespace)
+    App\Infrastructure\Event\Subscriber\ApiExceptionSubscriber:
+        arguments:
+            $debug: '%kernel.debug%'
+        tags: ['kernel.event_subscriber']
+
+    App\Infrastructure\Event\Subscriber\DomainExceptionSubscriber:
+        tags: ['kernel.event_subscriber']
+
+    App\Infrastructure\Event\Listener\JWTCreatedListener:
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJwtCreated }
+
+    # Security Handlers
+    App\Infrastructure\Security\JwtAuthenticationEntryPoint:
+        autowire: true
+        autoconfigure: false
+
+    App\Infrastructure\Security\ApiAccessDeniedHandler:
+        autowire: true
+        autoconfigure: false
+
+    # Redis Service
+    App\Infrastructure\Service\RedisService:
+        arguments:
+            $redisDsn: '%env(REDIS_DSN)%'
+
+    # MongoDB Service
+    App\Infrastructure\Service\MongoDBService:
+        arguments:
+            $mongodbUrl: '%env(MONGODB_URL)%'
+            $mongodbDatabase: '%env(MONGODB_DATABASE)%'
+
+    # JWT TTL configuration
+    #App\Application\User\Command\LoginHandler:
+    #    arguments:
+    #        $jwtTtl: '%env(int:JWT_TTL)%'
+    # Custom Authentication Success Handler with JWT TTL
+    App\Infrastructure\Security\CustomAuthenticationSuccessHandler:
+        arguments:
+            $jwtTtl: '%env(int:JWT_TTL)%'
+
+    # Bind Domain Repository Interfaces to Infrastructure Implementations #
+
+    # User Domain
+    App\Domain\User\Repository\UserRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\User\UserRepository
+
+    # Master Domain
+    App\Domain\Master\Repository\MasterRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\Master\MasterRepository
+
+    App\Domain\Master\Repository\MasterProfileRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\Master\MasterProfileRepository
+
+    App\Domain\Master\Repository\MasterAccessLogRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\Master\MasterAccessLogRepository
+
+    # Admin Domain
+    App\Domain\Admin\Repository\AdminRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\Admin\AdminRepository
+
+    App\Domain\Admin\Repository\AdminProfileRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\Admin\AdminProfileRepository
+
+    App\Domain\Admin\Repository\AdminAccessLogRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\Admin\AdminAccessLogRepository
+
+    # Employee Domain
+    App\Domain\Employee\Repository\EmployeeRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\Employee\EmployeeRepository
+
+    App\Domain\Employee\Repository\EmployeeProfileRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\Employee\EmployeeProfileRepository
+
+    App\Domain\Employee\Repository\EmployeeAccessLogRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\Employee\EmployeeAccessLogRepository
+
+    # Office Repositories
+    App\Domain\Office\Repository\DepartmentRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\Office\DepartmentRepository
+
+    App\Domain\Office\Repository\JobRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\Office\JobRepository
+
+    # Geo Repositories
+    App\Domain\Geo\Repository\GeoLocationRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\Geo\GeoLocationRepository
+
+     # Employment Repositories
+    App\Domain\Employment\Repository\EmploymentContractTypeRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\Employment\EmploymentContractTypeRepository
+
+    App\Domain\Employment\Repository\EmploymentContractRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\Employment\EmploymentContractRepository
+
+    App\Domain\Employment\Repository\EmploymentWorkdayRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\Employment\EmploymentWorkdayRepository
+
+    App\Domain\Employment\Repository\EmploymentWorkdayClockingRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\Employment\EmploymentWorkdayClockingRepository

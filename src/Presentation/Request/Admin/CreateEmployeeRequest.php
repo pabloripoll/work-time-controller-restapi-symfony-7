@@ -1,0 +1,36 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Presentation\Request\Admin;
+
+use App\Presentation\Request\BaseRequest;
+use Symfony\Component\Validator\Constraints as Assert;
+
+final class CreateEmployeeRequest extends BaseRequest
+{
+    #[Assert\NotBlank(message: 'Email is required')]
+    #[Assert\Email(message: 'Invalid email format')]
+    public ?string $email = null;  // nullable with default
+
+    #[Assert\NotBlank(message: 'Password is required')]
+    #[Assert\Length(min: 8, minMessage: 'Password must be at least 8 characters')]
+    public ?string $password = null;  // nullable with default
+
+    #[Assert\NotBlank(message: 'Name is required')]
+    #[Assert\Length(min: 2, max: 64)]
+    public ?string $name = null;  // nullable with default
+
+    #[Assert\NotBlank(message: 'Surname is required')]
+    #[Assert\Length(min: 2, max: 64)]
+    public ?string $surname = null;  // nullable with default
+
+    public ?string $birth_date = null;
+    public ?string $phone_number = null;
+    public ?string $department = null;
+
+    public function rules(): array
+    {
+        return [];
+    }
+}

@@ -1,0 +1,9 @@
+controllers:
+    resource:
+        path: ../src/Presentation/Http/Rest/
+        namespace: App\Presentation\Http\Rest
+    type: attribute
+
+kernel:
+    resource: App\Kernel
+    type: attribute
