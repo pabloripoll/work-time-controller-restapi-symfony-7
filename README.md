@@ -43,7 +43,6 @@ This project demonstrates:
 - ✅ Idempotent Operations - Safe fixture loading
 - ✅ Soft Deletes - Data preservation
 - ✅ Audit Logging - Activity tracking
-<br>
 
 ## 🚧 Roadmap
 
