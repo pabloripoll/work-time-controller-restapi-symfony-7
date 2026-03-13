@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Http\ArgumentResolver;
+namespace App\Infrastructure\Http;
 
 use App\Domain\User\Entity\User;
 use App\Domain\Employee\Entity\Employee;
@@ -11,9 +11,10 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
+ * This script is not being used - It is for further usage between user and employee entities on auth
  * ./config/services.yaml
  * services:
- *   App\Infrastructure\Http\ArgumentResolver\AuthenticatedEmployeeResolver:
+ *   App\Infrastructure\Http\AuthenticatedEmployeeResolver:
  *      tags:
  *          - { name: controller.argument_value_resolver, priority: 150 }
  *
