@@ -1,5 +1,5 @@
 <div id="top-header" style="with:100%;height:auto;text-align:right;">
-    <img src="../public/files/pr-banner-long.png">
+    <img src="./images/pr-banner-long.png">
 </div>
 
 # WORKTIME CONTROLLER - SYMFONY 7
@@ -326,5 +326,5 @@ employees (domain root)
 - [GO TOP ⮙](#top-header)
 
 <div style="with:100%;height:auto;text-align:right;">
-    <img src="../public/files/pr-banner-long.png">
+    <img src="./images/pr-banner-long.png">
 </div>

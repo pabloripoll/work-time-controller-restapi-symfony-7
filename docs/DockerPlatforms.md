@@ -1,5 +1,5 @@
 <div id="top-header" style="with:100%;height:auto;text-align:right;">
-    <img src="../public/files/pr-banner-long.png">
+    <img src="./images/pr-banner-long.png">
 </div>
 
 # WORKTIME CONTROLLER - SYMFONY 7
@@ -13,12 +13,14 @@
 
 ## <a id="platforms-repository"></a>Platforms Repository
 
-Clone the Docker Platforms Repository [...](https://github.com/pabloripoll/...)
+You can start by cloning the Docker Platforms Repository [platform-docker-nginx-php-8.5](https://github.com/pabloripoll/platform-docker-nginx-php-8.5)
 ```bash
-$ git@github.com:pabloripoll/....git
+$ git clone https://github.com/pabloripoll/platform-docker-nginx-php-8.5.git
 ```
 
-Move inside the clones repository directory to set up the platforms containers.
+From https://github.com/pabloripoll?tab=repositories you can clone other resources for this project, extract from its `./platform/` directory, the platform required to be required
+
+In the root of platform repository directory, you need to set up the platforms containers variable for the best automation to build and maitain them.
 
 Copy the .env.example file to .env, delete the comments and choose the ports available locally *(it is recommended that they be followed)*
 ```bash
@@ -241,10 +243,10 @@ $ git reset --hard
 $ git commit -m "Remove apirest directory and its default installation"
 ```
 
-- Clone inside the `./apirest` directory [https://github.com/pabloripoll/...](https://github.com/pabloripoll/...)
+- Clone inside the `./apirest` directory [work-time-controller-restapi-symfony-7](https://github.com/pabloripoll/work-time-controller-restapi-symfony-7)
 ```bash
 $ cd ./apirest
-$ git@github.com:pabloripoll/....git .
+$ git clone https://github.com/pabloripoll/work-time-controller-restapi-symfony-7 .
 ```
 
 - The `./apirest` directory is now a **standalone repository** and will not be tracked as a submodule in the main repository. You can use `git` commands freely within `apirest` from locally or from within the container.
@@ -264,5 +266,5 @@ $ make apirest-ssh
 - [GO TOP ⮙](#top-header)
 
 <div style="with:100%;height:auto;text-align:right;">
-    <img src="../public/files/pr-banner-long.png">
+    <img src="./images/pr-banner-long.png">
 </div>

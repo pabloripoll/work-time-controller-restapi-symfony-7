@@ -1,5 +1,5 @@
 <div id="top-header" style="with:100%;height:auto;text-align:right;">
-    <img src="../public/files/pr-banner-long.png">
+    <img src="./images/pr-banner-long.png">
 </div>
 
 # WORKTIME CONTROLLER - SYMFONY 7
@@ -7,9 +7,29 @@
 - [/README.md](../README.md)
 <br><br>
 
-# API Configuration
+# API Development
 
-## API REST start up
+If you are using the https://github.com/pabloripoll/platform-docker-nginx-php-8.5 repository, you may notice that there some config directories samples.
+
+- `./platform/nginx-php-8.5/docker/config/nginx/conf.d-sample`
+- `./platform/nginx-php-8.5/docker/config/php/conf.d-sample`
+- `./platform/nginx-php-8.5/docker/config/supervisor/conf.d-sample`
+
+All of them are required for the REST API platform:
+
+1. NGINX
+- `./platform/nginx-php-8.5/docker/config/nginx/conf.d/default.conf`
+
+2. PHP
+- `./platform/nginx-php-8.5/docker/config/php/conf.d/fpm-pool.conf`
+- `./platform/nginx-php-8.5/docker/config/php/conf.d/php.ini`
+
+3. SUPERVISOR
+- `./platform/nginx-php-8.5/docker/config/supervisor/conf.d/nginx.conf`
+- `./platform/nginx-php-8.5/docker/config/supervisor/conf.d/php-fpm.conf`
+<br>
+
+## API start up
 
 Once the platform is installed and the REST API container is running, you must execute the initialization commands
 ```bash
@@ -120,5 +140,5 @@ Clear all cache
 - [GO TOP ⮙](#top-header)
 
 <div style="with:100%;height:auto;text-align:right;">
-    <img src="../public/files/pr-banner-long.png">
+    <img src="./images/pr-banner-long.png">
 </div>

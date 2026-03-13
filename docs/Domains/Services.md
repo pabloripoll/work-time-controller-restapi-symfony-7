@@ -1,4 +1,15 @@
-# Domain Layer vs Application Layer Services
+<div id="top-header" style="with:100%;height:auto;text-align:right;">
+    <img src="./../images/pr-banner-long.png">
+</div>
+
+# WORKTIME CONTROLLER - SYMFONY 7
+
+- [/README.md](../README.md)
+<br><br>
+
+# Domain Layer Services vs Application Layer Services
+
+🚧 ROADMAP
 
 ## Domain Services (App\Domain\Employee\Service)
 
@@ -6,17 +17,17 @@ Purpose: Encapsulate business logic that doesn't naturally fit in a single entit
 
 Characteristics:
 
-✅ Contains pure business rules
-✅ Domain-specific operations
-✅ No infrastructure dependencies (no repositories, no HTTP, no DB)
-✅ Operates on domain entities
-✅ Stateless business logic
-Examples:
+- Contains pure business rules
+- Domain-specific operations
+- No infrastructure dependencies (no repositories, no HTTP, no DB)
+- Operates on domain entities
+- Stateless business logic
 
-PHP
+Examples:
+```php
 namespace App\Domain\Employee\Service;
 
-// ✅ CORRECT - Domain Service
+// CORRECT - Domain Service
 class EmployeeSalaryCalculator
 {
     public function calculateAnnualSalary(Employee $employee, Contract $contract): Money
@@ -33,7 +44,7 @@ class EmployeeSalaryCalculator
     }
 }
 
-// ✅ CORRECT - Domain Service
+// CORRECT - Domain Service
 class EmployeePromotionPolicy
 {
     public function canBePromoted(Employee $employee): bool
@@ -43,22 +54,25 @@ class EmployeePromotionPolicy
             && !$employee->isBanned();
     }
 }
-🟢 Application Services (App\Application\Employee\Service)
+```
+
+## Application Services (App\Application\Employee\Service)
+
 Purpose: Orchestrate domain objects and infrastructure to fulfill use cases
 
 Characteristics:
 
-✅ Coordinates between multiple repositories
-✅ Orchestrates workflows
-✅ Can inject repositories, external services
-✅ Handles cross-cutting concerns (transactions, logging)
-✅ Maps domain models to DTOs
-Examples:
+- Coordinates between multiple repositories
+- Orchestrates workflows
+- Can inject repositories, external services
+- Handles cross-cutting concerns (transactions, logging)
+- Maps domain models to DTOs
 
-PHP
+Examples:
+```php
 namespace App\Application\Employee\Service;
 
-// ✅ CORRECT - Application Service
+// CORRECT - Application Service
 readonly class EmployeeAggregateService
 {
     public function __construct(
@@ -81,7 +95,7 @@ readonly class EmployeeAggregateService
     }
 }
 
-// ✅ CORRECT - Application Service
+// CORRECT - Application Service
 readonly class EmployeeOnboardingService
 {
     public function __construct(
@@ -106,11 +120,14 @@ readonly class EmployeeOnboardingService
         return $employee;
     }
 }
-Decision Tree
-Code
+```
+
+## Decision Tree
+
+```sh
 Is it PURE business logic that operates on entities?
 │
-├─ YES ��� Domain Service (App\Domain\Employee\Service)
+├─ YES Domain Service (App\Domain\Employee\Service)
 │   Examples:
 │   - EmployeeSalaryCalculator
 │   - EmployeePromotionPolicy
@@ -123,9 +140,12 @@ Is it PURE business logic that operates on entities?
         - EmployeeAggregateService (fetches from multiple repos)
         - EmployeeOnboardingService (orchestrates workflow)
         - EmployeeReportGenerator (queries + formatting)
-Real-World Examples
-✅ Domain Service (belongs in Domain\)
-PHP
+```
+
+## Real-World Examples
+
+### Domain Service (belongs in Domain\)
+```php
 namespace App\Domain\Employee\Service;
 
 class EmployeeTransferPolicy
@@ -153,8 +173,11 @@ class EmployeeTransferPolicy
         return true;
     }
 }
-✅ Application Service (belongs in Application\)
-PHP
+```
+
+### Application Service (belongs in Application\)
+
+```php
 namespace App\Application\Employee\Service;
 
 readonly class EmployeeTransferService
@@ -193,9 +216,12 @@ readonly class EmployeeTransferService
         $this->eventDispatcher->dispatch(new EmployeeTransferred($employee));
     }
 }
-Your Specific Case: EmployeeAggregateService
-PHP
-// ❌ WRONG LOCATION
+```
+
+### This Specific Case: EmployeeAggregateService
+
+```php
+// WRONG LOCATION
 namespace App\Domain\Employee\Service;
 
 class EmployeeAggregateService
@@ -207,24 +233,31 @@ class EmployeeAggregateService
     }
 }
 
-// ✅ CORRECT LOCATION
+// CORRECT LOCATION
 namespace App\Application\Employee\Service;
 
 class EmployeeAggregateService
 {
     // This orchestrates repositories → Application Service
 }
-Quick Reference
-Concern	Domain Service	Application Service
-Location	Domain\Employee\Service\	Application\Employee\Service\
-Purpose	Business logic	Orchestration
-Dependencies	Entities, Value Objects, other Domain Services	Repositories, Infrastructure, Domain Services
-Repository Access	❌ No	✅ Yes
-Infrastructure	❌ No (no DB, HTTP, Email)	✅ Yes
-Returns	Domain objects	DTOs, primitives
-Example	SalaryCalculator	EmployeeAggregateService
-Recommended Structure
-Code
+```
+
+###  Reference
+
+│ Concern	          │ Domain Service	                                 │  Application Service                                 │
+│ ------------------- │ ------------------------------------------------ │----------------------------------------------------- │
+│ Location	          │ Domain\Employee\Service\	                     │  Application\Employee\Service\                       │
+│ Purpose	          │ Business logic	                                 │  Orchestration                                       │
+│ Dependencies	      │ Entities, Value Objects, other Domain Services	 │  Repositories, Infrastructure, Domain Services       │
+│ Repository Access	  │ ❌ No	                                        │  ✅ Yes                                              │
+│ Infrastructure	  │ ❌ No (no DB, HTTP, Email)	                    │  ✅ Yes                                              │
+│ Returns	          │ Domain objects	                                 │  DTOs, primitives                                    │
+│ Example	          │ SalaryCalculator	                             │  EmployeeAggregateService                            │
+<br>
+
+### Recommended Structure
+
+```sh
 src/
 ├── Domain/
 │   └── Employee/
@@ -245,10 +278,25 @@ src/
             ├── EmployeeAggregateService.php         ← Orchestrates repos
             ├── EmployeeOnboardingService.php        ← Workflow orchestration
             └── EmployeeReportGenerator.php          ← Queries + formatting
-TL;DR
-Move EmployeeAggregateService from Domain\ to Application\ because it:
+```
 
-✅ Injects repositories
-✅ Orchestrates multiple data sources
-✅ Returns DTOs (not domain entities)
-This is an Application Service, not a Domain Service!
+EmployeeAggregateService is not part of the Domain\ rather part of the Application\ because it:
+
+- Injects repositories
+- Orchestrates multiple data sources
+- Returns DTOs (not domain entities)
+
+EmployeeAggregateService is an Application Service, not a Domain Service.
+
+<!-- FOOTER -->
+<br>
+
+---
+
+<br>
+
+- [GO TOP ⮙](#top-header)
+
+<div style="with:100%;height:auto;text-align:right;">
+    <img src="./../images/pr-banner-long.png">
+</div>

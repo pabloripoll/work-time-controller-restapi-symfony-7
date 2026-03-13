@@ -1,5 +1,5 @@
 <div id="top-header" style="with:100%;height:auto;text-align:right;">
-    <img src="./public/files/pr-banner-long.png">
+    <img src="./docs/images/pr-banner-long.png">
 </div>
 
 # WORKTIME CONTROLLER - SYMFONY 7
@@ -19,7 +19,7 @@ A comprehensive **Work Time Management System** built with **Symfony 7**, demons
 
 - [Docker Platforms](./docs/DockerPlatforms.md)
 
-- [REST API Configuration](./docs/APIConfiguration.md)
+- [REST API Development](./docs/APIDevelopment.md)
 
 - [REST API Structure](./docs/APIStructure.md)
 
@@ -84,5 +84,5 @@ This project is open-sourced under the [MIT license](LICENSE).
 - [GO TOP ⮙](#top-header)
 
 <div style="with:100%;height:auto;text-align:right;">
-    <img src="./public/files/pr-banner-long.png">
+    <img src="./docs/images/pr-banner-long.png">
 </div>

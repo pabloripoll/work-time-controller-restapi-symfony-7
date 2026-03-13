@@ -1,6 +1,15 @@
-# Geo
+<div id="top-header" style="with:100%;height:auto;text-align:right;">
+    <img src="./../images/pr-banner-long.png">
+</div>
 
-hierarchical self-referential table for geo locations - this is actually a clever design pattern called Adjacency List or Closure Table pattern. This avoids the complexity of multiple tables.
+# WORKTIME CONTROLLER - SYMFONY 7
+
+- [/README.md](../README.md)
+<br><br>
+
+# Domain Geographic Locations
+
+Hierarchical self-referential table for geo locations - this is actually a design pattern called **Adjacency List** or **Closure Table** pattern. This avoids the complexity of multiple tables.
 
 ## Example Query to Get Full Hierarchy
 
@@ -19,3 +28,16 @@ $hierarchy = [
 
 // Result: Europe > EU > Spain > Comunitat Valenciana > Valencia > Valencia City
 ```
+
+<!-- FOOTER -->
+<br>
+
+---
+
+<br>
+
+- [GO TOP ⮙](#top-header)
+
+<div style="with:100%;height:auto;text-align:right;">
+    <img src="./../images/pr-banner-long.png">
+</div>
