@@ -26,6 +26,10 @@ class JWTCreatedListener
 
         $payload['user_id'] = $user->getId();
 
+        if ($role === UserRole::MASTER) {
+            $payload['is_master'] = true;
+        }
+
         if ($role === UserRole::ADMIN) {
             $payload['is_admin'] = true;
         }
