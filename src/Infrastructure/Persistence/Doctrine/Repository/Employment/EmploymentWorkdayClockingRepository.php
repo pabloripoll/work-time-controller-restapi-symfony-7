@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence\Doctrine\Employment\Repository;
+namespace App\Infrastructure\Persistence\Doctrine\Repository\Employment;
 
 use App\Domain\Employment\Entity\EmploymentWorkdayClocking;
 use App\Domain\Employment\Repository\EmploymentWorkdayClockingRepositoryInterface;
