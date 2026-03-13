@@ -9,7 +9,7 @@ use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface
 
 class JwtAuthenticationEntryPoint implements AuthenticationEntryPointInterface
 {
-    public function start(Request $request, AuthenticationException $authException = null): JsonResponse
+    public function start(Request $request, ?AuthenticationException $authException = null): JsonResponse
     {
         $message = $authException ? $authException->getMessage() : 'Authentication Required.';
 
