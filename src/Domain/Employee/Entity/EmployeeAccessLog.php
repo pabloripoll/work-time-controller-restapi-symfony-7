@@ -8,11 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Domain\User\Entity\User;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'member_access_logs')]
-#[ORM\Index(columns: ['user_id'], name: 'idx_member_access_log_user')]
-#[ORM\Index(columns: ['token'], name: 'idx_member_access_log_token')]
-#[ORM\Index(columns: ['expires_at'], name: 'idx_member_access_log_expires')]
-#[ORM\Index(columns: ['created_at'], name: 'idx_member_access_log_created')]
+#[ORM\Table(name: 'employee_access_logs')]
+#[ORM\Index(columns: ['user_id'], name: 'idx_employee_access_log_user')]
+#[ORM\Index(columns: ['token'], name: 'idx_employee_access_log_token')]
+#[ORM\Index(columns: ['expires_at'], name: 'idx_employee_access_log_expires')]
+#[ORM\Index(columns: ['created_at'], name: 'idx_employee_access_log_created')]
 class EmployeeAccessLog
 {
     private function __construct(
