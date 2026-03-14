@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Domain\Employee\Fixture;
 
+use Faker\Factory;
+use Faker\Generator;
+use Doctrine\Persistence\ObjectManager;
 use App\Domain\Employee\Entity\Employee;
 use App\Domain\Employee\Entity\EmployeeProfile;
 use App\Domain\Employee\Entity\EmployeeContact;
@@ -19,9 +22,6 @@ use App\Domain\User\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Persistence\ObjectManager;
-use Faker\Factory;
-use Faker\Generator;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class EmployeeFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
@@ -33,7 +33,7 @@ class EmployeeFixtures extends Fixture implements DependentFixtureInterface, Fix
     public function __construct(
         private readonly UserPasswordHasherInterface $passwordHasher
     ) {
-        $this->faker = Factory::create('es_ES'); // Spanish locale for better Spanish names
+        $this->faker = Factory::create('en_EN');
     }
 
     public function load(ObjectManager $manager): void

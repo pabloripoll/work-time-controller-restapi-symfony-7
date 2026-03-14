@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Domain\Admin\Fixture;
 
+use Faker\Factory;
+use Faker\Generator;
+use Doctrine\Persistence\ObjectManager;
 use App\Domain\Admin\Entity\Admin;
 use App\Domain\Admin\Entity\AdminProfile;
 use App\Domain\Employee\Entity\Employee;
@@ -12,7 +15,6 @@ use App\Domain\User\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AdminFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
@@ -21,10 +23,12 @@ class AdminFixtures extends Fixture implements DependentFixtureInterface, Fixtur
     private const SUPERADMIN_NICKNAME = 'SuperAdmin';
     private const SUPERADMIN_PASSWORD = 'Pass123A';
     private const EMPLOYEE_EMAIL = 'wortic.admin@example.com'; // The employee to link
+    private Generator $faker;
 
     public function __construct(
         private readonly UserPasswordHasherInterface $passwordHasher
     ) {
+        $this->faker = Factory::create('en_EN');
     }
 
     public function load(ObjectManager $manager): void
