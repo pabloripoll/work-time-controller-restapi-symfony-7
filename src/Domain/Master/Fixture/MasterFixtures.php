@@ -61,7 +61,7 @@ class MasterFixtures extends Fixture
                 createdByUserId: 1 // System/Master user
             );
 
-            $hashedPassword = $this->passwordHasher->hashPassword($user, 'Pass1234?');
+            $hashedPassword = $this->passwordHasher->hashPassword($user, 'Pass12B4?');
             $user->updatePassword($hashedPassword);
 
             $manager->persist($user);

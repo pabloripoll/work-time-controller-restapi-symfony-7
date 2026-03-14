@@ -66,18 +66,23 @@ $ php bin/console doctrine:migrations:migrate
 
 Execute the database seeding
 ```bash
-$ php bin/console doctrine:fixtures:load --append --dry-run # Preview fixtures seeding
+$ php bin/console doctrine:fixtures:load --append --dry-run # Preview fixtures seeding before record them
+$ php bin/console doctrine:fixtures:load --append # Apply fixtures
+```
+
+For more seeding, you may avoid overwrite previous fixtures
+```bash
 $ php bin/console doctrine:fixtures:load --append --no-interaction # Avoid purging existing data
 ```
 
-## Testing
+## API Test
 
-Create a parallel testing database from your local machine
+Create a parallel testing database on your local machine
 ```bash
 $ make db-test-up
 ```
 
-Now you can manage testing database from API container
+Now you can manage local testing database from the API container
 ```bash
 $ make apirest-ssh
 
@@ -90,30 +95,30 @@ $ make apirest-ssh
 
 Run Unit, Integration and Functional tests
 ```bash
-# Run all tests
-/var/www $ php vendor/bin/phpunit
-
 # Run specific test suite
 /var/www $ php vendor/bin/phpunit --testsuite=Unit --testdox
 /var/www $ php vendor/bin/phpunit --testsuite=Integration --testdox
 /var/www $ php vendor/bin/phpunit --testsuite=Functional --testdox
 
+# Run all tests
+/var/www $ php vendor/bin/phpunit
+
 # Run specific test file
 /var/www $ php vendor/bin/phpunit tests/Unit/Domain/Shared/ValueObject/EmailTest.php --testdox
 ```
 
-Remove testing database for new tests execution if required
+Remove testing database for new tests execution if will require later
 ```bash
 /var/www $ php bin/console --env=test doctrine:database:drop --force --if-exists
 /var/www $ php bin/console cache:clear --env=test
 ```
 
-Or remove testing database from local
+Or remove testing database on the API container from local
 ```bash
 $ make db-test-down
 ```
 
-Execute Static Tests
+Execute static tests from API container
 ```bash
 /var/www $ composer phpstan
 

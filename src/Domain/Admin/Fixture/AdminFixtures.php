@@ -19,7 +19,7 @@ class AdminFixtures extends Fixture implements DependentFixtureInterface, Fixtur
 {
     private const SUPERADMIN_EMAIL = 'wortic.superadmin@example.com';
     private const SUPERADMIN_NICKNAME = 'SuperAdmin';
-    private const SUPERADMIN_PASSWORD = 'Pass1234?';
+    private const SUPERADMIN_PASSWORD = 'Pass123A';
     private const EMPLOYEE_EMAIL = 'wortic.admin@example.com'; // The employee to link
 
     public function __construct(

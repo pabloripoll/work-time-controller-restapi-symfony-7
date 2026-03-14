@@ -149,7 +149,7 @@ class EmployeeFixtures extends Fixture implements DependentFixtureInterface, Fix
                 createdByUserId: 1
             );
 
-            $hashedPassword = $this->passwordHasher->hashPassword($user, 'password123');
+            $hashedPassword = $this->passwordHasher->hashPassword($user, 'Pass1234');
             $user->updatePassword($hashedPassword);
 
             $manager->persist($user);
